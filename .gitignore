@@ -1,3 +1,6 @@
+# Output data
+*.csv
+
 # Logs
 logs
 *.log

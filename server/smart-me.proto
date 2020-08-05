@@ -1,0 +1,60 @@
+syntax = "proto2";
+package smartMe;
+
+message TimeSpan {
+  required sint64 value = 1; // the size of the timespan (in units of the selected scale)
+  optional TimeSpanScale scale = 2; // the scale of the timespan [default = DAYS]
+  enum TimeSpanScale {
+    DAYS = 0;
+    HOURS = 1;
+    MINUTES = 2;
+    SECONDS = 3;
+    MILLISECONDS = 4;
+  TICKS = 5;
+
+    MINMAX = 15; // dubious
+  }
+}
+
+message DateTime {
+  optional sint64 value = 1; // the offset (in units of the selected scale) from 1970/01/01
+  optional TimeSpanScale scale = 2; // the scale of the timespan [default = DAYS]
+  optional DateTimeKind kind = 3; // the kind of date/time being represented [default = UNSPECIFIED]
+  enum TimeSpanScale {
+    DAYS = 0;
+    HOURS = 1;
+    MINUTES = 2;
+    SECONDS = 3;
+    MILLISECONDS = 4;
+ TICKS = 5;
+
+    MINMAX = 15; // dubious
+  }
+  enum DateTimeKind
+  {     
+     // The time represented is not specified as either local time or Coordinated Universal Time (UTC).
+     UNSPECIFIED = 0;
+     // The time represented is UTC.
+     UTC = 1;
+     // The time represented is local time.
+     LOCAL = 2;
+   }
+}
+
+message Guid {
+  required fixed64 lo = 1; // the first 8 bytes of the guid (note:crazy-endian)
+  required fixed64 hi = 2; // the second 8 bytes of the guid (note:crazy-endian)
+}
+
+message DeviceData {
+   required Guid DeviceId = 1;
+   required DateTime DateTime = 2;
+   repeated DeviceValue DeviceValues = 3;
+}
+message DeviceDataArray {
+   repeated DeviceData DeviceDataItems = 1;
+}
+message DeviceValue {
+   required bytes Obis = 1;
+   required double Value = 2;
+}
