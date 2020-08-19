@@ -1,6 +1,9 @@
 # Output data
 *.csv
 
+# test videos
+videos/
+
 # Logs
 logs
 *.log
